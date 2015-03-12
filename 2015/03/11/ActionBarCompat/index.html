@@ -5,21 +5,21 @@
   
   <title>ActionBarCompat | Yzx Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="有三种Theme： Theme.AppCompat 深色主题，继承自android:Theme Theme.AppCompat.Light 浅色主题，继承自android:Theme.Light Theme.AppCompat.Light.DarkActionBar 浅色主题，ActionBar是深色主题，继承自android:Theme.Light
+  <meta name="description" content="有三种Theme：  Theme.AppCompat 深色主题，继承自android:Theme  Theme.AppCompat.Light 浅色主题，继承自android:Theme.Light  Theme.AppCompat.Light.DarkActionBar 浅色主题，ActionBar是深色主题，继承自android:Theme.Light
 
-可以使用ActionBarStyleGen">
+可以使用ActionBarStyle">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ActionBarCompat">
 <meta property="og:url" content="http://yzx41099298.github.io/2015/03/11/ActionBarCompat/">
 <meta property="og:site_name" content="Yzx Blog">
-<meta property="og:description" content="有三种Theme： Theme.AppCompat 深色主题，继承自android:Theme Theme.AppCompat.Light 浅色主题，继承自android:Theme.Light Theme.AppCompat.Light.DarkActionBar 浅色主题，ActionBar是深色主题，继承自android:Theme.Light
+<meta property="og:description" content="有三种Theme：  Theme.AppCompat 深色主题，继承自android:Theme  Theme.AppCompat.Light 浅色主题，继承自android:Theme.Light  Theme.AppCompat.Light.DarkActionBar 浅色主题，ActionBar是深色主题，继承自android:Theme.Light
 
-可以使用ActionBarStyleGen">
+可以使用ActionBarStyle">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ActionBarCompat">
-<meta name="twitter:description" content="有三种Theme： Theme.AppCompat 深色主题，继承自android:Theme Theme.AppCompat.Light 浅色主题，继承自android:Theme.Light Theme.AppCompat.Light.DarkActionBar 浅色主题，ActionBar是深色主题，继承自android:Theme.Light
+<meta name="twitter:description" content="有三种Theme：  Theme.AppCompat 深色主题，继承自android:Theme  Theme.AppCompat.Light 浅色主题，继承自android:Theme.Light  Theme.AppCompat.Light.DarkActionBar 浅色主题，ActionBar是深色主题，继承自android:Theme.Light
 
-可以使用ActionBarStyleGen">
+可以使用ActionBarStyle">
 
   
     <link rel="alternative" href="/atom.xml" title="Yzx Blog" type="application/atom+xml">
@@ -89,71 +89,33 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <ol>
-<li><p>有三种Theme：<br> Theme.AppCompat 深色主题，继承自android:Theme<br> Theme.AppCompat.Light 浅色主题，继承自android:Theme.Light<br> Theme.AppCompat.Light.DarkActionBar 浅色主题，ActionBar是深色主题，继承自android:Theme.Light</p>
+        <ul>
+<li><p>有三种Theme：<br>  Theme.AppCompat 深色主题，继承自android:Theme<br>  Theme.AppCompat.Light 浅色主题，继承自android:Theme.Light<br>  Theme.AppCompat.Light.DarkActionBar 浅色主题，ActionBar是深色主题，继承自android:Theme.Light</p>
 </li>
 <li><p>可以使用ActionBarStyleGenerator开始进行自定义，不过功能有限，只能自定义背景色，图标和前景色通常还需要自行修改。另外这个站点生成的文件命名采用添加后缀的方式，不是很符合android的风格。</p>
 </li>
 <li><p>所有属性进行自定义时，需要同时添加android:xxx和xxx两项，前者v14+使用，后者v14-使用或者使用values和values-v14分别定义</p>
 </li>
-<li><p>ActionBar默认大小<br> 以Galaxy Nexus portrait模式为例<br> 高度：48dp(portrait), 40dp(landcape)<br> 右侧按钮宽度：56dp<br> paddingLeft、paddingRight：12dp</p>
+<li><p>ActionBar默认大小<br>  以Galaxy Nexus portrait模式为例<br>  高度：48dp(portrait), 40dp(landcape)<br>  右侧按钮宽度：56dp<br>  paddingLeft、paddingRight：12dp</p>
 </li>
-<li><p>自定义方式：修改Theme里的属性，或者actionBarWidgetTheme里面的属性<br>  如果属性是color/dimen/drawable，则可以直接设置<br>  如果属性是textAppearance/style，则还需要进一步定义，此时要注意该属性值需要继承自合适的类型<br>  某些dimen属性无法修改，可以通过修改图标大小的方式间接完成，例如想让up图标距离两侧的边距增大，就只能够修改up图标大小，让两侧的透明区域增大</p>
+<li><p>自定义方式：修改Theme里的属性，或者actionBarWidgetTheme里面的属性<br>   如果属性是color/dimen/drawable，则可以直接设置<br>   如果属性是textAppearance/style，则还需要进一步定义，此时要注意该属性值需要继承自合适的类型<br>   某些dimen属性无法修改，可以通过修改图标大小的方式间接完成，例如想让up图标距离两侧的边距增大，就只能够修改up图标大小，让两侧的透明区域增大</p>
 </li>
 <li><p>ActionBar的自定义包括：</p>
-<pre><code> ActionBar的自定义：背景、标题、进度条、按钮
+</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">ActionBar的自定义：背景、标题、进度条、按钮</div><div class="line">	actionBarStyle: &lt;&lt; <span class="filename">Widget.AppCompat.Light.ActionBar.Solid.Inverse</span></div><div class="line">          background/backgroundStacked/backgroundSplit: Drawable</div><div class="line">          titleTextStyle: &lt;&lt; <span class="filename">TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse</span></div><div class="line">          subtitleTextStyle: &lt;&lt; <span class="filename">TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Inverse</span></div><div class="line">          progressBarStyle: &lt;&lt; <span class="filename">Widget.AppCompat.ProgressBar.Horizontal</span></div><div class="line">          indeterminateProgressStyle: &lt;&lt; <span class="filename">Widget.AppCompat.ProgressBar</span></div><div class="line">          divider: &lt;&lt; Drawable</div><div class="line">          displayOptions:useLogo|showHome|homeAsUp|showTitle|showCustom</div><div class="line">	actionButtonStyle: &lt;&lt; <span class="filename">Widget.AppCompat.ActionButton</span></div><div class="line">          background: Drawable, 默认为?attr/actionBarItemBackground</div></pre></td></tr></table></figure>
 
- actionBarStyle: &lt;&lt; <span class="filename">Widget.AppCompat.Light.ActionBar.Solid.Inverse
-   background/backgroundStacked/backgroundSplit</span>: Drawable
-   titleTextStyle: &lt;&lt; <span class="filename">TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse
-   subtitleTextStyle</span>: &lt;&lt; <span class="filename">TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Inverse
-   progressBarStyle</span>: &lt;&lt; <span class="filename">Widget.AppCompat.ProgressBar.Horizontal 
-   indeterminateProgressStyle</span>: &lt;&lt; <span class="filename">Widget.AppCompat.ProgressBar
-   divider</span>: &lt;&lt; Drawable
-   displayOptions:useLogo|showHome|homeAsUp|showTitle|showCustom
 
- actionButtonStyle: &lt;&lt; <span class="filename">Widget.AppCompat.ActionButton
-   background</span>: Drawable, 默认为?attr/actionBarItemBackground
-</code></pre></li>
-</ol>
-<pre><code>** abc_action_menu_item_layout为布局文件，paddingLeft/<span class="keyword">Right</span>为<span class="number">8</span>，paddingTop/<span class="keyword">Bottom</span>为<span class="number">4</span>，不可修改，因此portrait模式下图标大小应该不超过<span class="number">40</span>dp(<span class="number">56</span>-<span class="number">2</span>\*<span class="number">8</span>) x <span class="number">40</span>dp(<span class="number">48</span>-<span class="number">2</span>\*<span class="number">4</span>)，而landscape模式下由于action bar高度仅为<span class="number">40</span>dp，因此图标大小不超过<span class="number">32</span>dp x <span class="number">32</span>dp。所以通常做图标时取小的尺寸做成<span class="number">32</span>dp x <span class="number">32</span>dp**
 
-    actionOverflowButtonStyle: &lt;&lt; Widget.AppCompat.ActionButton.<span class="keyword">Overflow</span>
-      src: Drawable
-**使用OverflowMenuButton实现，没有使用布局资源，默认paddingLeft/<span class="keyword">Right</span>为<span class="number">12</span>，因此<span class="keyword">Overflow</span>图标的建议大小为<span class="number">32</span>dp(<span class="number">56</span>-<span class="number">12</span>\*<span class="number">2</span>) x <span class="number">32</span>dp**
+<p>abc_action_menu_item_layout为布局文件，paddingLeft/Right为8，paddingTop/Bottom为4，不可修改，因此portrait模式下图标大小应该不超过40dp(56-2*8) x 40dp(48-2*4)，而landscape模式下由于action bar高度仅为40dp，因此图标大小不超过32dp x 32dp。所以通常做图标时取小的尺寸做成32dp x 32dp</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">actionOverflowButtonStyle</span>: <span class="string">&lt;&lt; Widget.AppCompat.ActionButton.Overflow</span></div><div class="line">	<span class="attribute">src</span>: <span class="string">Drawable</span></div></pre></td></tr></table></figure>
 
-    homeAsUpIndicator: &lt;&lt; Drawable
-    actionBarSize: dimen 高度
+<p>使用OverflowMenuButton实现，没有使用布局资源，默认paddingLeft/Right为12，因此Overflow图标的建议大小为32dp(56-12*2) x 32dp    </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">homeAsUpIndicator: &lt;&lt; Drawable</div><div class="line">	actionBarSize: dimen 高度</div><div class="line">		  </div><div class="line">	ActionMode的自定义：背景，左侧对勾图标</div><div class="line">		actionModeBackground/actionModeSplitBackground: Drawable</div><div class="line">		actionModeCloseButtonStyle: &lt;&lt; Widget.AppCompat.ActionButton.CloseMode</div><div class="line">		actionModeCloseDrawable: Drawable</div><div class="line">               		</div><div class="line">	Spinner的样式: </div><div class="line">		actionBarWidgetTheme</div><div class="line">          actionDropDownStyle: &lt;&lt; Widget.AppCompat.Spinner.DropDown.ActionBar</div><div class="line">              background: Drawable</div><div class="line">              popupBackground: Drawable</div><div class="line">              dropDownSelector: Drawable</div><div class="line"></div><div class="line">	SpinnerItem的样式通过SpinnerAdapter的getView进行设置</div><div class="line"></div><div class="line">	OverflowMenu的样式：实现类MenuPopupHelper</div><div class="line">		     actionBarWidgetTheme</div><div class="line">		          popupMenuStyle</div><div class="line">		               popupBackground: Drawable</div><div class="line">		          dropDownListViewStyle</div><div class="line">		               listSelector: Drawable</div><div class="line">		               divider: Drawable</div><div class="line">     </div><div class="line">	OverflowMenu Item的样式: 高度、字体 (默认布局：abc_popup_menu_item_layout)</div><div class="line">		     actionBarWidgetTheme</div><div class="line">		          textAppearanceLargePopupMenu: &lt;&lt; TextAppearance.AppCompat.Widget.PopupMenu.Large</div><div class="line">		          dropdownListPreferredItemHeight: dimen</div></pre></td></tr></table></figure>
 
-    ActionMode的自定义：背景，左侧对勾图标
-      actionModeBackground/actionModeSplitBackground: Drawable
-      actionModeCloseButtonStyle: &lt;&lt; Widget.AppCompat.ActionButton.CloseMode
-      actionModeCloseDrawable: Drawable
-
-    Spinner的样式: 
-         actionBarWidgetTheme
-              actionDropDownStyle: &lt;&lt; Widget.AppCompat.Spinner.DropDown.ActionBar
-                   background: Drawable
-                   popupBackground: Drawable
-                   dropDownSelector: Drawable
-
-    SpinnerItem的样式通过SpinnerAdapter的getView进行设置
-
-    OverflowMenu的样式：实现类MenuPopupHelper
-         actionBarWidgetTheme
-              popupMenuStyle
-                   popupBackground: Drawable
-              dropDownListViewStyle
-                   listSelector: Drawable
-                   divider: Drawable
-
-    OverflowMenu <span class="keyword">Item</span>的样式: 高度、字体 (默认布局：abc_popup_menu_item_layout)
-         actionBarWidgetTheme
-              textAppearanceLargePopupMenu: &lt;&lt; TextAppearance.AppCompat.Widget.<span class="keyword">PopupMenu</span>.<span class="keyword">Large</span>
-              dropdownListPreferredItemHeight: dimen
-</code></pre><ol>
+<ul>
 <li>对ABC代码的修改：在2.x版本的系统上依旧显示Overflow Button：ActionBarPolicy#showsOverflowMenuButton，始终返回true</li>
-</ol>
+</ul>
 
       
     </div>
