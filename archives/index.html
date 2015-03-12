@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Archives | Yzx Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Keep Writing">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Yzx Blog">
+<meta property="og:url" content="http://yzx41099298.github.io/archives/">
+<meta property="og:site_name" content="Yzx Blog">
+<meta property="og:description" content="Keep Writing">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Yzx Blog">
+<meta name="twitter:description" content="Keep Writing">
+
+  
+    <link rel="alternative" href="/atom.xml" title="Yzx Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Yzx Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://yzx41099298.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-maven" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/11/maven/" class="article-date">
+  <time datetime="2015-03-11T10:02:21.000Z" itemprop="datePublished">2015-03-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/11/maven/">使用Gradle编译链，在Github上托管一个Maven资源库。</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li>在github创建账号，创建Repositories.</li>
+<li><p>创建maven本地仓库目录</p>
+<pre><code>   $ <span class="built_in">mkdir</span> maven
+   $ <span class="keyword">cd</span> maven
+   $ <span class="built_in">mkdir</span> abptrcompat
+</code></pre></li>
+<li><p>在代码的build.gradle文件中加入</p>
+<pre><code> apply plugin: <span class="string">'maven'</span>
+ uploadArchives {
+     <span class="keyword">repositories</span>.mavenDeployer {
+         repository(url: <span class="string">"file:///Users/yangzhixin/maven/abptrcompat/"</span>)
+         pom {
+             version = <span class="string">'1.0.0'</span>
+             artifactId = <span class="string">'yzx-abptrcompat'</span>
+             groupId = <span class="string">'com.yzx'</span>
+         }
+     }
+ } 
+</code></pre></li>
+<li><p>编译上传到本地仓库</p>
+<pre><code> <span class="variable">$ </span>gradle clean build uploadArchives
+</code></pre></li>
+<li><p>进入本地仓库目录 maven/abptrcompat</p>
+<pre><code> <span class="variable">$ </span>git init
+   <span class="variable">$ </span>git remote add remotecompat <span class="symbol">https:</span>/<span class="regexp">/github.com/yzx</span>41099298/abptrcompat.git
+   <span class="variable">$ </span>git add .
+   <span class="variable">$ </span>git commit -m “abcompat-<span class="number">1.0</span>.<span class="number">0</span>”
+   <span class="variable">$ </span>git push remotecompat master
+</code></pre></li>
+<li><p>在调用库的build.gradle中加入</p>
+<pre><code> <span class="keyword">repositories</span> {
+     maven{ url <span class="string">"https://github.com/yzx41099298/abptrcompat/raw/master/"</span>}
+ }
+
+ <span class="keyword">dependencies</span> {
+     <span class="keyword">compile</span> <span class="string">'com.yzx:yzx-abptrcompat:1.0.0@aar'</span>
+ } 
+</code></pre></li>
+</ol>
+<p>参考：<a href="http://downright-amazed.blogspot.com/2011/09/hosting-maven-repository-on-github-for.html" target="_blank" rel="external">http://downright-amazed.blogspot.com/2011/09/hosting-maven-repository-on-github-for.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yzx41099298.github.io/2015/03/11/maven/" data-id="olra2btixhes8lsd" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Fromhtml" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/11/Fromhtml/" class="article-date">
+  <time datetime="2015-03-11T09:58:35.000Z" itemprop="datePublished">2015-03-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/11/Fromhtml/">Html.fromhtml 方法支持的参数</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <table>
+<thead>
+<tr>
+<th>Tags</th>
+<th style="text-align:left">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>b, strong</td>
+<td style="text-align:left">Bold</td>
+</tr>
+<tr>
+<td>i, em, cite, dfn</td>
+<td style="text-align:left">Italics</td>
+</tr>
+<tr>
+<td>u</td>
+<td style="text-align:left">Underline</td>
+</tr>
+<tr>
+<td>sub</td>
+<td style="text-align:left">Subtext</td>
+</tr>
+<tr>
+<td>sup</td>
+<td style="text-align:left">Supertext</td>
+</tr>
+<tr>
+<td>big</td>
+<td style="text-align:left">Big</td>
+</tr>
+<tr>
+<td>small</td>
+<td style="text-align:left">Small</td>
+</tr>
+<tr>
+<td>tt</td>
+<td style="text-align:left">Monospace</td>
+</tr>
+<tr>
+<td>h1 … h6</td>
+<td style="text-align:left">Headlines</td>
+</tr>
+<tr>
+<td>img</td>
+<td style="text-align:left">Image</td>
+</tr>
+<tr>
+<td>font</td>
+<td style="text-align:left">Font face and color</td>
+</tr>
+<tr>
+<td>blockquote</td>
+<td style="text-align:left">For longer quotes</td>
+</tr>
+<tr>
+<td>a</td>
+<td style="text-align:left">Link</td>
+</tr>
+<tr>
+<td>div, p</td>
+<td style="text-align:left">Paragraph</td>
+</tr>
+<tr>
+<td>br</td>
+<td style="text-align:left">Linefeed</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yzx41099298.github.io/2015/03/11/Fromhtml/" data-id="4v5akf4f7th12ae1" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-protobuf" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/11/protobuf/" class="article-date">
+  <time datetime="2015-03-11T09:56:39.000Z" itemprop="datePublished">2015-03-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/11/protobuf/">Protobuf Micro</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Install:">Install:</h3>
+<ol>
+<li><p>Download protomicro at: <a href="https://code.google.com/p/micro-protobuf/" target="_blank" rel="external">https://code.google.com/p/micro-protobuf/</a></p>
+</li>
+<li><p>$ ./configure</p>
+</li>
+<li><p>$ make</p>
+<p> If errors as below：<br> make[2]: <strong><em> [message.lo] Error 1<br> make[1]: </em></strong> [all-recursive] Error 1<br> make: <em>*</em> [all] Error 2</p>
+<p> Add  “#include <istream>“ in src/google/protobuf/message.cc</istream></p>
+</li>
+<li><p>Create file protoc in /usr/local/bin/<br> $ make install</p>
+</li>
+</ol>
+<h3 id="USAGE:">USAGE:</h3>
+<ol>
+<li><p>Define .proto file</p>
+</li>
+<li><p>Create a java class in out_dir.<br> $ /usr/local/bin/protoc —-javamicro_out=”our_dir” <em>*</em>.proto</p>
+</li>
+<li><p>Use the java class。 </p>
+</li>
+<li><p>Import com.google.protobuf.micro in micro-protobuf-read-only/java/src/main/java/。</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yzx41099298.github.io/2015/03/11/protobuf/" data-id="xheo66pydhq549cv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ActivityResult" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/11/ActivityResult/" class="article-date">
+  <time datetime="2015-03-11T09:53:17.000Z" itemprop="datePublished">2015-03-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/11/ActivityResult/">Activity being created twice, when back from camera Intent</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><p>Android may choose to destroy an Activity that is waiting for the call to onActivityResult; especially when free memory is running low. Some devices appear more aggressive about destroying Activitys that are on the task stack. I can reliably recreate the issue on a Samsung device set to a debugging mode called “strict mode”.</p>
+</li>
+<li><p>You can verify whether this is your issue by logging calls to onCreate &amp; onDestroy.</p>
+</li>
+<li><p>In the case of a destroyed activity, when the activity result needs to be processed, Android will recreate the Activity, passing a savedInstanceState to onCreate. So, the remedy is to check the value of savedInstanceState in your GetImageActivity.onCreate. If it is not null then don’t make any calls to startActivity because your Activity is being recreated to call onActivityResult.</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yzx41099298.github.io/2015/03/11/ActivityResult/" data-id="lssb00mbtjzaugzg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ActionBarCompat" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/11/ActionBarCompat/" class="article-date">
+  <time datetime="2015-03-11T09:34:39.000Z" itemprop="datePublished">2015-03-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/11/ActionBarCompat/">ActionBarCompat</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li><p>有三种Theme：<br> Theme.AppCompat 深色主题，继承自android:Theme<br> Theme.AppCompat.Light 浅色主题，继承自android:Theme.Light<br> Theme.AppCompat.Light.DarkActionBar 浅色主题，ActionBar是深色主题，继承自android:Theme.Light</p>
+</li>
+<li><p>可以使用ActionBarStyleGenerator开始进行自定义，不过功能有限，只能自定义背景色，图标和前景色通常还需要自行修改。另外这个站点生成的文件命名采用添加后缀的方式，不是很符合android的风格。</p>
+</li>
+<li><p>所有属性进行自定义时，需要同时添加android:xxx和xxx两项，前者v14+使用，后者v14-使用或者使用values和values-v14分别定义</p>
+</li>
+<li><p>ActionBar默认大小<br> 以Galaxy Nexus portrait模式为例<br> 高度：48dp(portrait), 40dp(landcape)<br> 右侧按钮宽度：56dp<br> paddingLeft、paddingRight：12dp</p>
+</li>
+<li><p>自定义方式：修改Theme里的属性，或者actionBarWidgetTheme里面的属性<br>  如果属性是color/dimen/drawable，则可以直接设置<br>  如果属性是textAppearance/style，则还需要进一步定义，此时要注意该属性值需要继承自合适的类型<br>  某些dimen属性无法修改，可以通过修改图标大小的方式间接完成，例如想让up图标距离两侧的边距增大，就只能够修改up图标大小，让两侧的透明区域增大</p>
+</li>
+<li><p>ActionBar的自定义包括：</p>
+<pre><code> ActionBar的自定义：背景、标题、进度条、按钮
+
+ actionBarStyle: &lt;&lt; <span class="filename">Widget.AppCompat.Light.ActionBar.Solid.Inverse
+   background/backgroundStacked/backgroundSplit</span>: Drawable
+   titleTextStyle: &lt;&lt; <span class="filename">TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse
+   subtitleTextStyle</span>: &lt;&lt; <span class="filename">TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Inverse
+   progressBarStyle</span>: &lt;&lt; <span class="filename">Widget.AppCompat.ProgressBar.Horizontal 
+   indeterminateProgressStyle</span>: &lt;&lt; <span class="filename">Widget.AppCompat.ProgressBar
+   divider</span>: &lt;&lt; Drawable
+   displayOptions:useLogo|showHome|homeAsUp|showTitle|showCustom
+
+ actionButtonStyle: &lt;&lt; <span class="filename">Widget.AppCompat.ActionButton
+   background</span>: Drawable, 默认为?attr/actionBarItemBackground
+</code></pre></li>
+</ol>
+<pre><code>** abc_action_menu_item_layout为布局文件，paddingLeft/<span class="keyword">Right</span>为<span class="number">8</span>，paddingTop/<span class="keyword">Bottom</span>为<span class="number">4</span>，不可修改，因此portrait模式下图标大小应该不超过<span class="number">40</span>dp(<span class="number">56</span>-<span class="number">2</span>\*<span class="number">8</span>) x <span class="number">40</span>dp(<span class="number">48</span>-<span class="number">2</span>\*<span class="number">4</span>)，而landscape模式下由于action bar高度仅为<span class="number">40</span>dp，因此图标大小不超过<span class="number">32</span>dp x <span class="number">32</span>dp。所以通常做图标时取小的尺寸做成<span class="number">32</span>dp x <span class="number">32</span>dp**
+
+    actionOverflowButtonStyle: &lt;&lt; Widget.AppCompat.ActionButton.<span class="keyword">Overflow</span>
+      src: Drawable
+**使用OverflowMenuButton实现，没有使用布局资源，默认paddingLeft/<span class="keyword">Right</span>为<span class="number">12</span>，因此<span class="keyword">Overflow</span>图标的建议大小为<span class="number">32</span>dp(<span class="number">56</span>-<span class="number">12</span>\*<span class="number">2</span>) x <span class="number">32</span>dp**
+
+    homeAsUpIndicator: &lt;&lt; Drawable
+    actionBarSize: dimen 高度
+
+    ActionMode的自定义：背景，左侧对勾图标
+      actionModeBackground/actionModeSplitBackground: Drawable
+      actionModeCloseButtonStyle: &lt;&lt; Widget.AppCompat.ActionButton.CloseMode
+      actionModeCloseDrawable: Drawable
+
+    Spinner的样式: 
+         actionBarWidgetTheme
+              actionDropDownStyle: &lt;&lt; Widget.AppCompat.Spinner.DropDown.ActionBar
+                   background: Drawable
+                   popupBackground: Drawable
+                   dropDownSelector: Drawable
+
+    SpinnerItem的样式通过SpinnerAdapter的getView进行设置
+
+    OverflowMenu的样式：实现类MenuPopupHelper
+         actionBarWidgetTheme
+              popupMenuStyle
+                   popupBackground: Drawable
+              dropDownListViewStyle
+                   listSelector: Drawable
+                   divider: Drawable
+
+    OverflowMenu <span class="keyword">Item</span>的样式: 高度、字体 (默认布局：abc_popup_menu_item_layout)
+         actionBarWidgetTheme
+              textAppearanceLargePopupMenu: &lt;&lt; TextAppearance.AppCompat.Widget.<span class="keyword">PopupMenu</span>.<span class="keyword">Large</span>
+              dropdownListPreferredItemHeight: dimen
+</code></pre><ol>
+<li>对ABC代码的修改：在2.x版本的系统上依旧显示Overflow Button：ActionBarPolicy#showsOverflowMenuButton，始终返回true</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yzx41099298.github.io/2015/03/11/ActionBarCompat/" data-id="imhr9fd1kccvhzpi" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-listView" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/11/listView/" class="article-date">
+  <time datetime="2015-03-11T09:25:55.000Z" itemprop="datePublished">2015-03-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/11/listView/">优化listView</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li>Use the View Holder pattern</li>
+<li>Do as little work as possible in getView()</li>
+<li>Reduce unnecessary overdraw</li>
+<li>Flatten the view hierarchy</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yzx41099298.github.io/2015/03/11/listView/" data-id="h3xhwnoj5k8xxedy" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-aop" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/11/aop/" class="article-date">
+  <time datetime="2015-03-11T08:54:35.000Z" itemprop="datePublished">2015-03-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/11/aop/">AOP</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>AOP即面向切面编程。AspectJ是AOP最早成熟的Java实现，它稍微扩展了一下Java语言，增加了一些Keyword:</p>
+<ul>
+<li>Aspect:用来定义切面，该切面可以包含多个切入点和通知，而且标签内部的通知和切入点定义是无序的</li>
+<li>Pointcut:表示一个切入点或触发点，切入点支持的切入点指示符有几种，execution表示执行点，call表示调用点</li>
+<li>execution：使用“execution(方法表达式)”匹配方法执行，方法表达式的格式（注解？ 修饰符? 返回值类型 类型声明?方法名(参数列表) 异常列表？）</li>
+<li>Advice：Pointcut被触发，所产生相应的动作。Advice在AspectJ有三种：before、 after、Around（调用先后均执行）</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yzx41099298.github.io/2015/03/11/aop/" data-id="7l6wrjcenj1n97c4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-first-post" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/11/first-post/" class="article-date">
+  <time datetime="2015-03-11T08:42:26.000Z" itemprop="datePublished">2015-03-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/11/first-post/">“今天开始blog搬家了”</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我是一名Android程序员，写此博客的目的有两点，第一方便记录知识，第二写着玩。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yzx41099298.github.io/2015/03/11/first-post/" data-id="5w25q304jcj80cpo" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/03/11/maven/">使用Gradle编译链，在Github上托管一个Maven资源库。</a>
+          </li>
+        
+          <li>
+            <a href="/2015/03/11/Fromhtml/">Html.fromhtml 方法支持的参数</a>
+          </li>
+        
+          <li>
+            <a href="/2015/03/11/protobuf/">Protobuf Micro</a>
+          </li>
+        
+          <li>
+            <a href="/2015/03/11/ActivityResult/">Activity being created twice, when back from camera Intent</a>
+          </li>
+        
+          <li>
+            <a href="/2015/03/11/ActionBarCompat/">ActionBarCompat</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 yzx<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+
+  </div>
+</body>
+</html>
