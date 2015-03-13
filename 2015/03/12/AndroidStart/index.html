@@ -3,26 +3,29 @@
 <head>
   <meta charset="utf-8">
   
-  <title>优化listView | Yzx Blog</title>
+  <title>AndroidStart | Yzx Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Use the View Holder pattern
-Do as little work as possible in getView()
-Reduce unnecessary overdraw
-Flatten the view hierarchy">
+  <meta name="description" content="Android 开机过程：
+
+首先linux系统会启动一个叫做zygote（可以称为受精卵、母体）的linux程序，这个程序实际上就是android系统的内核
+接着zygote会孵化第一个dalvik进程SystemServer，它会通过socket与zygote通信
+SystemServer它会发送一个隐式的intent（category：CATEGORY_HOME），也就是launcher了（">
 <meta property="og:type" content="article">
-<meta property="og:title" content="优化listView">
-<meta property="og:url" content="http://yzx41099298.github.io/2015/03/11/listView/">
+<meta property="og:title" content="AndroidStart">
+<meta property="og:url" content="http://yzx41099298.github.io/2015/03/12/AndroidStart/">
 <meta property="og:site_name" content="Yzx Blog">
-<meta property="og:description" content="Use the View Holder pattern
-Do as little work as possible in getView()
-Reduce unnecessary overdraw
-Flatten the view hierarchy">
+<meta property="og:description" content="Android 开机过程：
+
+首先linux系统会启动一个叫做zygote（可以称为受精卵、母体）的linux程序，这个程序实际上就是android系统的内核
+接着zygote会孵化第一个dalvik进程SystemServer，它会通过socket与zygote通信
+SystemServer它会发送一个隐式的intent（category：CATEGORY_HOME），也就是launcher了（">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="优化listView">
-<meta name="twitter:description" content="Use the View Holder pattern
-Do as little work as possible in getView()
-Reduce unnecessary overdraw
-Flatten the view hierarchy">
+<meta name="twitter:title" content="AndroidStart">
+<meta name="twitter:description" content="Android 开机过程：
+
+首先linux系统会启动一个叫做zygote（可以称为受精卵、母体）的linux程序，这个程序实际上就是android系统的内核
+接着zygote会孵化第一个dalvik进程SystemServer，它会通过socket与zygote通信
+SystemServer它会发送一个隐式的intent（category：CATEGORY_HOME），也就是launcher了（">
 
   
     <link rel="alternative" href="/atom.xml" title="Yzx Blog" type="application/atom+xml">
@@ -70,10 +73,10 @@ Flatten the view hierarchy">
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-listView" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-AndroidStart" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/03/11/listView/" class="article-date">
-  <time datetime="2015-03-11T09:25:55.000Z" itemprop="datePublished">2015-03-11</time>
+    <a href="/2015/03/12/AndroidStart/" class="article-date">
+  <time datetime="2015-03-12T10:32:09.000Z" itemprop="datePublished">2015-03-12</time>
 </a>
     
   </div>
@@ -84,7 +87,7 @@ Flatten the view hierarchy">
         
   
     <h1 class="article-title" itemprop="name">
-      优化listView
+      AndroidStart
     </h1>
   
 
@@ -92,17 +95,22 @@ Flatten the view hierarchy">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <ol>
-<li>Use the View Holder pattern</li>
-<li>Do as little work as possible in getView()</li>
-<li>Reduce unnecessary overdraw</li>
-<li>Flatten the view hierarchy</li>
-</ol>
+        <h4 id="Android_开机过程：">Android 开机过程：</h4>
+<ul>
+<li>首先linux系统会启动一个叫做zygote（可以称为受精卵、母体）的linux程序，这个程序实际上就是android系统的内核</li>
+<li>接着zygote会孵化第一个dalvik进程SystemServer，它会通过socket与zygote通信</li>
+<li>SystemServer它会发送一个隐式的intent（category：CATEGORY_HOME），也就是launcher了（第三方要开发launcher，只需要加入intent-filter即可）</li>
+</ul>
+<h4 id="Apk_安装过程：">Apk 安装过程：</h4>
+<ul>
+<li>将apk文件复制到程序目录下（/data/app/）</li>
+<li>为应用创建数据目录（/data/data/package name/）、提取dex文件到指定目录（/data/dalvik-cache/）、修改系统包管理信息</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yzx41099298.github.io/2015/03/11/listView/" data-id="h3xhwnoj5k8xxedy" class="article-share-link">Share</a>
+      <a data-url="http://yzx41099298.github.io/2015/03/12/AndroidStart/" data-id="t16sbfva448pukh6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -111,19 +119,19 @@ Flatten the view hierarchy">
     
 <nav id="article-nav">
   
-    <a href="/2015/03/11/ActionBarCompat/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/03/13/dl/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          ActionBarCompat
+          Android apk动态加载机制
         
       </div>
     </a>
   
   
-    <a href="/2015/03/11/aop/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/03/11/maven/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">AOP</div>
+      <div class="article-nav-title">使用Gradle编译链，在Github上托管一个Maven资源库。</div>
     </a>
   
 </nav>

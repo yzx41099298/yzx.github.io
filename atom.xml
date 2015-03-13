@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://yzx41099298.github.io/"/>
-  <updated>2015-03-12T10:16:58.337Z</updated>
+  <updated>2015-03-13T09:17:10.622Z</updated>
   <id>http://yzx41099298.github.io/</id>
   
   <author>
@@ -13,6 +13,55 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Android apk动态加载机制]]></title>
+    <link href="http://yzx41099298.github.io/2015/03/13/dl/"/>
+    <id>http://yzx41099298.github.io/2015/03/13/dl/</id>
+    <published>2015-03-13T07:27:38.000Z</published>
+    <updated>2015-03-13T09:17:02.000Z</updated>
+    <content type="html"><![CDATA[<p>apk动态加载机制就是在未安装apk的情况下运行外部apk，好酷炫的感觉，这样的好处就是动态部署，热插拔，松耦合，降低应用内存cpu占用，但是实现起来比较复杂。</p>
+<p>1. 想要运行apk我们可以通过宿主程序去动态加载apk文件并将其放在自己的进程中执行。首先需要宿主程序到文件系统中去加载apk, 理论上可以用到的有DexClassLoader、PathClassLoader和URLClassLoader。</p>
+<ul>
+<li>DexClassLoader ：可以加载文件系统上的jar、dex、apk</li>
+<li>PathClassLoader ：可以加载/data/app目录下的apk，这也意味着，它只能加载已经安装的apk</li>
+<li>URLClassLoader ：可以加载java中的jar，但是由于dalvik不能直接识别jar，所以此方法在android中无法使用，尽管还有这个类<br>采用DexClassLoader去加载apk，然后如果没有指定class，就调起主activity，否则调起指定的class。activity被调起的过程是这样的：首先通过类加载器去加载apk中activity的类并创建一个新对象，然后通过反射去调用这个对象的setProxy方法和onCreate方法，setProxy方法的作用是将activity内部的执行全部交由宿主程序中的proxy（也是一个activity），onCreate方法是activity的入口，setProxy以后就调用onCreate方法，这个时候activity就被调起来了。</li>
+</ul>
+<p>2. 资源管理：因为插件是在宿主程序中运行的，所以是运行在宿主程序的context中，所以先要使用自己的资源还需要想一些办法。<br>activity的工作主要是由ContextImpl来完成的， 它在activity中是一个叫做mBase的成员变量。注意到Context中有如下两个抽象方法，看起来是和资源有关的，实际上context就是通过它们来获取资源的，这两个抽象方法的真正实现在ContextImpl中。也即是说，只要我们自己实现这两个方法，就可以解决资源问题了。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="javadoc">/** Return an AssetManager instance for your application's package. */</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> AssetManager <span class="title">getAssets</span>();</div><div class="line"><span class="javadoc">/** Return a Resources instance for your application's package. */</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> Resources <span class="title">getResources</span>();</div></pre></td></tr></table></figure>
+
+<p>下面看一下如何实现这两个方法<br>首先要加载apk中的资源：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">loadResources</span>() {  </div><div class="line">    <span class="keyword">try</span> {  </div><div class="line">        AssetManager assetManager = AssetManager.class.newInstance();  </div><div class="line">        Method addAssetPath = assetManager.getClass().getMethod(<span class="string">"addAssetPath"</span>, String.class);  </div><div class="line">        addAssetPath.invoke(assetManager, mDexPath);  </div><div class="line">        mAssetManager = assetManager;  </div><div class="line">    } <span class="keyword">catch</span> (Exception e) {  </div><div class="line">        e.printStackTrace();  </div><div class="line">    }  </div><div class="line">    Resources superRes = <span class="keyword">super</span>.getResources();  </div><div class="line">    mResources = <span class="keyword">new</span> Resources(mAssetManager, superRes.getDisplayMetrics(),  </div><div class="line">            superRes.getConfiguration());  </div><div class="line">    mTheme = mResources.newTheme();  </div><div class="line">    mTheme.setTo(<span class="keyword">super</span>.getTheme());  </div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>说明：加载的方法是通过反射，通过调用AssetManager中的addAssetPath方法，我们可以将一个apk中的资源加载到Resources中，由于addAssetPath是隐藏api我们无法直接调用，所以只能通过反射，下面是它的声明，通过注释我们可以看出，传递的路径可以是zip文件也可以是一个资源目录，而apk就是一个zip，所以直接将apk的路径传给它，资源就加载到AssetManager中了，然后再通过AssetManager来创建一个新的Resources对象，这个对象就是我们可以使用的apk中的资源了，这样我们的问题就解决了。</p>
+<p>3. Activity的生命周期：<br>将activity的大部分生命周期方法提取出来作为一个接口（DLPlugin），然后通过代理activity（DLProxyActivity）去调用插件activity实现的生命周期方法，这样就完成了插件activity的生命周期管理，并且没有采用反射，当我们想增加一个新的生命周期方法的时候，只需要在接口中声明一下同时在代理activity中实现一下即可</p>
+<p>以上解决了动态加载的一些基本问题，另外还有很多问题需要一步步实现。<br>更多详细的内容可以查看singwhatiwanna的csdn博客及github开源项目<br><a href="http://blog.csdn.net/singwhatiwanna/article/details/39937639" target="_blank" rel="external">http://blog.csdn.net/singwhatiwanna/article/details/39937639</a><br><a href="https://github.com/singwhatiwanna/dynamic-load-apk" target="_blank" rel="external">https://github.com/singwhatiwanna/dynamic-load-apk</a> </p>
+]]></content>
+    
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[AndroidStart]]></title>
+    <link href="http://yzx41099298.github.io/2015/03/12/AndroidStart/"/>
+    <id>http://yzx41099298.github.io/2015/03/12/AndroidStart/</id>
+    <published>2015-03-12T10:32:09.000Z</published>
+    <updated>2015-03-13T06:26:47.000Z</updated>
+    <content type="html"><![CDATA[<h4 id="Android_开机过程：">Android 开机过程：</h4>
+<ul>
+<li>首先linux系统会启动一个叫做zygote（可以称为受精卵、母体）的linux程序，这个程序实际上就是android系统的内核</li>
+<li>接着zygote会孵化第一个dalvik进程SystemServer，它会通过socket与zygote通信</li>
+<li>SystemServer它会发送一个隐式的intent（category：CATEGORY_HOME），也就是launcher了（第三方要开发launcher，只需要加入intent-filter即可）</li>
+</ul>
+<h4 id="Apk_安装过程：">Apk 安装过程：</h4>
+<ul>
+<li>将apk文件复制到程序目录下（/data/app/）</li>
+<li>为应用创建数据目录（/data/data/package name/）、提取dex文件到指定目录（/data/dalvik-cache/）、修改系统包管理信息</li>
+</ul>
+]]></content>
+    
+    
+  </entry>
   
   <entry>
     <title><![CDATA[使用Gradle编译链，在Github上托管一个Maven资源库。]]></title>
