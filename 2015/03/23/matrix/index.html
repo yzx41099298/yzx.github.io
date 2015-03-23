@@ -3,17 +3,27 @@
 <head>
   <meta charset="utf-8">
   
-  <title>“今天开始blog搬家了” | Yzx Blog</title>
+  <title>Matrix pre post set | Yzx Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我是一名Android程序员，写此博客的目的有两点，第一方便记录知识，第二写着玩。">
+  <meta name="description" content="关于先乘和后乘的问题
+由于矩阵的乘法运算不满足交换律，我们在前面曾经多次提及先乘、后乘的问题，即先乘就是矩阵运算中右乘，后乘就是矩阵运算中的左乘。其实先乘、后乘的概念是针对变换操作的时间先后而言的，左乘、右乘是针对矩阵运算的左右位置而言的。以第一部分“二、旋转变换”中围绕某点旋转的情况为例：
+ 
+越靠近原图像中像素的矩阵，越先乘，越远离原图像中像素的矩阵，越后乘。事实上，图像处理时，矩阵的运算是从">
 <meta property="og:type" content="article">
-<meta property="og:title" content="“今天开始blog搬家了”">
-<meta property="og:url" content="http://yzx41099298.github.io/2015/03/11/first-post/">
+<meta property="og:title" content="Matrix pre post set">
+<meta property="og:url" content="http://yzx41099298.github.io/2015/03/23/matrix/">
 <meta property="og:site_name" content="Yzx Blog">
-<meta property="og:description" content="我是一名Android程序员，写此博客的目的有两点，第一方便记录知识，第二写着玩。">
+<meta property="og:description" content="关于先乘和后乘的问题
+由于矩阵的乘法运算不满足交换律，我们在前面曾经多次提及先乘、后乘的问题，即先乘就是矩阵运算中右乘，后乘就是矩阵运算中的左乘。其实先乘、后乘的概念是针对变换操作的时间先后而言的，左乘、右乘是针对矩阵运算的左右位置而言的。以第一部分“二、旋转变换”中围绕某点旋转的情况为例：
+ 
+越靠近原图像中像素的矩阵，越先乘，越远离原图像中像素的矩阵，越后乘。事实上，图像处理时，矩阵的运算是从">
+<meta property="og:image" content="image/matrix1.jpg">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="“今天开始blog搬家了”">
-<meta name="twitter:description" content="我是一名Android程序员，写此博客的目的有两点，第一方便记录知识，第二写着玩。">
+<meta name="twitter:title" content="Matrix pre post set">
+<meta name="twitter:description" content="关于先乘和后乘的问题
+由于矩阵的乘法运算不满足交换律，我们在前面曾经多次提及先乘、后乘的问题，即先乘就是矩阵运算中右乘，后乘就是矩阵运算中的左乘。其实先乘、后乘的概念是针对变换操作的时间先后而言的，左乘、右乘是针对矩阵运算的左右位置而言的。以第一部分“二、旋转变换”中围绕某点旋转的情况为例：
+ 
+越靠近原图像中像素的矩阵，越先乘，越远离原图像中像素的矩阵，越后乘。事实上，图像处理时，矩阵的运算是从">
 
   
     <link rel="alternative" href="/atom.xml" title="Yzx Blog" type="application/atom+xml">
@@ -61,10 +71,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-first-post" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-matrix" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/03/11/first-post/" class="article-date">
-  <time datetime="2015-03-11T08:42:26.000Z" itemprop="datePublished">2015-03-11</time>
+    <a href="/2015/03/23/matrix/" class="article-date">
+  <time datetime="2015-03-23T07:57:20.000Z" itemprop="datePublished">2015-03-23</time>
 </a>
     
   </div>
@@ -75,7 +85,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      “今天开始blog搬家了”
+      Matrix pre post set
     </h1>
   
 
@@ -83,12 +93,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>我是一名Android程序员，写此博客的目的有两点，第一方便记录知识，第二写着玩。</p>
+        <p>关于先乘和后乘的问题</p>
+<p>由于矩阵的乘法运算不满足交换律，我们在前面曾经多次提及先乘、后乘的问题，即先乘就是矩阵运算中右乘，后乘就是矩阵运算中的左乘。其实先乘、后乘的概念是针对变换操作的时间先后而言的，左乘、右乘是针对矩阵运算的左右位置而言的。以第一部分“二、旋转变换”中围绕某点旋转的情况为例：</p>
+<p><img src="image/matrix1.jpg" alt="hello"> </p>
+<p>越靠近原图像中像素的矩阵，越先乘，越远离原图像中像素的矩阵，越后乘。事实上，图像处理时，矩阵的运算是从右边往左边方向进行运算的。这就形成了越在右边的矩阵(右乘)，越先运算(先乘)，反之亦然。</p>
+<p>当然，在实际中，如果首先指定了一个matrix，比如我们先setRotate()，即指定了上面变换矩阵中，中间的那个矩阵，那么后续的矩阵到底是pre还是post运算，都是相对这个中间矩阵而言的。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yzx41099298.github.io/2015/03/11/first-post/" data-id="5w25q304jcj80cpo" class="article-share-link">Share</a>
+      <a data-url="http://yzx41099298.github.io/2015/03/23/matrix/" data-id="cmwnzu7qemznovqn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -97,15 +111,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/03/11/aop/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          AOP
-        
-      </div>
-    </a>
   
+    <a href="/2015/03/19/pulltorefresh/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">下拉刷新的简单实现</div>
+    </a>
   
 </nav>
 

@@ -63,6 +63,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-matrix" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/23/matrix/" class="article-date">
+  <time datetime="2015-03-23T07:57:20.000Z" itemprop="datePublished">2015-03-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/23/matrix/">Matrix pre post set</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>关于先乘和后乘的问题</p>
+<p>由于矩阵的乘法运算不满足交换律，我们在前面曾经多次提及先乘、后乘的问题，即先乘就是矩阵运算中右乘，后乘就是矩阵运算中的左乘。其实先乘、后乘的概念是针对变换操作的时间先后而言的，左乘、右乘是针对矩阵运算的左右位置而言的。以第一部分“二、旋转变换”中围绕某点旋转的情况为例：</p>
+<p><img src="image/matrix1.jpg" alt="hello"> </p>
+<p>越靠近原图像中像素的矩阵，越先乘，越远离原图像中像素的矩阵，越后乘。事实上，图像处理时，矩阵的运算是从右边往左边方向进行运算的。这就形成了越在右边的矩阵(右乘)，越先运算(先乘)，反之亦然。</p>
+<p>当然，在实际中，如果首先指定了一个matrix，比如我们先setRotate()，即指定了上面变换矩阵中，中间的那个矩阵，那么后续的矩阵到底是pre还是post运算，都是相对这个中间矩阵而言的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yzx41099298.github.io/2015/03/23/matrix/" data-id="cmwnzu7qemznovqn" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-pulltorefresh" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/03/19/pulltorefresh/" class="article-date">
@@ -599,69 +640,6 @@
 
 
   
-    <article id="post-ActionBarCompat" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/03/11/ActionBarCompat/" class="article-date">
-  <time datetime="2015-03-11T09:34:39.000Z" itemprop="datePublished">2015-03-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/11/ActionBarCompat/">ActionBarCompat</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li><p>有三种Theme：<br>  Theme.AppCompat 深色主题，继承自android:Theme<br>  Theme.AppCompat.Light 浅色主题，继承自android:Theme.Light<br>  Theme.AppCompat.Light.DarkActionBar 浅色主题，ActionBar是深色主题，继承自android:Theme.Light</p>
-</li>
-<li><p>可以使用ActionBarStyleGenerator开始进行自定义，不过功能有限，只能自定义背景色，图标和前景色通常还需要自行修改。另外这个站点生成的文件命名采用添加后缀的方式，不是很符合android的风格。</p>
-</li>
-<li><p>所有属性进行自定义时，需要同时添加android:xxx和xxx两项，前者v14+使用，后者v14-使用或者使用values和values-v14分别定义</p>
-</li>
-<li><p>ActionBar默认大小<br>  以Galaxy Nexus portrait模式为例<br>  高度：48dp(portrait), 40dp(landcape)<br>  右侧按钮宽度：56dp<br>  paddingLeft、paddingRight：12dp</p>
-</li>
-<li><p>自定义方式：修改Theme里的属性，或者actionBarWidgetTheme里面的属性<br>   如果属性是color/dimen/drawable，则可以直接设置<br>   如果属性是textAppearance/style，则还需要进一步定义，此时要注意该属性值需要继承自合适的类型<br>   某些dimen属性无法修改，可以通过修改图标大小的方式间接完成，例如想让up图标距离两侧的边距增大，就只能够修改up图标大小，让两侧的透明区域增大</p>
-</li>
-<li><p>ActionBar的自定义包括：</p>
-</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">ActionBar的自定义：背景、标题、进度条、按钮</div><div class="line">	actionBarStyle: &lt;&lt; <span class="filename">Widget.AppCompat.Light.ActionBar.Solid.Inverse</span></div><div class="line">          background/backgroundStacked/backgroundSplit: Drawable</div><div class="line">          titleTextStyle: &lt;&lt; <span class="filename">TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse</span></div><div class="line">          subtitleTextStyle: &lt;&lt; <span class="filename">TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Inverse</span></div><div class="line">          progressBarStyle: &lt;&lt; <span class="filename">Widget.AppCompat.ProgressBar.Horizontal</span></div><div class="line">          indeterminateProgressStyle: &lt;&lt; <span class="filename">Widget.AppCompat.ProgressBar</span></div><div class="line">          divider: &lt;&lt; Drawable</div><div class="line">          displayOptions:useLogo|showHome|homeAsUp|showTitle|showCustom</div><div class="line">	actionButtonStyle: &lt;&lt; <span class="filename">Widget.AppCompat.ActionButton</span></div><div class="line">          background: Drawable, 默认为?attr/actionBarItemBackground</div></pre></td></tr></table></figure>
-
-
-
-<p>abc_action_menu_item_layout为布局文件，paddingLeft/Right为8，paddingTop/Bottom为4，不可修改，因此portrait模式下图标大小应该不超过40dp(56-2*8) x 40dp(48-2*4)，而landscape模式下由于action bar高度仅为40dp，因此图标大小不超过32dp x 32dp。所以通常做图标时取小的尺寸做成32dp x 32dp</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">actionOverflowButtonStyle</span>: <span class="string">&lt;&lt; Widget.AppCompat.ActionButton.Overflow</span></div><div class="line">	<span class="attribute">src</span>: <span class="string">Drawable</span></div></pre></td></tr></table></figure>
-
-<p>使用OverflowMenuButton实现，没有使用布局资源，默认paddingLeft/Right为12，因此Overflow图标的建议大小为32dp(56-12*2) x 32dp    </p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">homeAsUpIndicator: &lt;&lt; Drawable</div><div class="line">	actionBarSize: dimen 高度</div><div class="line">		  </div><div class="line">	ActionMode的自定义：背景，左侧对勾图标</div><div class="line">		actionModeBackground/actionModeSplitBackground: Drawable</div><div class="line">		actionModeCloseButtonStyle: &lt;&lt; Widget.AppCompat.ActionButton.CloseMode</div><div class="line">		actionModeCloseDrawable: Drawable</div><div class="line">               		</div><div class="line">	Spinner的样式: </div><div class="line">		actionBarWidgetTheme</div><div class="line">          actionDropDownStyle: &lt;&lt; Widget.AppCompat.Spinner.DropDown.ActionBar</div><div class="line">              background: Drawable</div><div class="line">              popupBackground: Drawable</div><div class="line">              dropDownSelector: Drawable</div><div class="line"></div><div class="line">	SpinnerItem的样式通过SpinnerAdapter的getView进行设置</div><div class="line"></div><div class="line">	OverflowMenu的样式：实现类MenuPopupHelper</div><div class="line">		     actionBarWidgetTheme</div><div class="line">		          popupMenuStyle</div><div class="line">		               popupBackground: Drawable</div><div class="line">		          dropDownListViewStyle</div><div class="line">		               listSelector: Drawable</div><div class="line">		               divider: Drawable</div><div class="line">     </div><div class="line">	OverflowMenu Item的样式: 高度、字体 (默认布局：abc_popup_menu_item_layout)</div><div class="line">		     actionBarWidgetTheme</div><div class="line">		          textAppearanceLargePopupMenu: &lt;&lt; TextAppearance.AppCompat.Widget.PopupMenu.Large</div><div class="line">		          dropdownListPreferredItemHeight: dimen</div></pre></td></tr></table></figure>
-
-<ul>
-<li>对ABC代码的修改：在2.x版本的系统上依旧显示Overflow Button：ActionBarPolicy#showsOverflowMenuButton，始终返回true</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yzx41099298.github.io/2015/03/11/ActionBarCompat/" data-id="imhr9fd1kccvhzpi" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
@@ -681,7 +659,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">13</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">14</span></li></ul>
     </div>
   </div>
 
@@ -691,6 +669,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/03/23/matrix/">Matrix pre post set</a>
+          </li>
         
           <li>
             <a href="/2015/03/19/pulltorefresh/">下拉刷新的简单实现</a>
@@ -706,10 +688,6 @@
         
           <li>
             <a href="/2015/03/13/dl/">Android apk动态加载机制</a>
-          </li>
-        
-          <li>
-            <a href="/2015/03/12/AndroidStart/">AndroidStart</a>
           </li>
         
       </ul>
