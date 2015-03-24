@@ -3,26 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>优化listView | Yzx Blog</title>
+  <title>Dagger中addsTo VS include in subObjectGraphs | Yzx Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Use the View Holder pattern
-Do as little work as possible in getView()
-Reduce unnecessary overdraw
-Flatten the view hierarchy">
+  <meta name="description" content="在Dagger中遇到要注入新的module的时候，需要调用existingObjectGraph.plus(new SomeModule());来告诉ObjectGraphs有新的Module需要注入。如果新注入的Module依赖于原existingObjectGraph中的某一个Module, 从原理上可以使用includes和addsTo两种方式，但是两个具体的区别是：
+
+includes表示">
 <meta property="og:type" content="article">
-<meta property="og:title" content="优化listView">
-<meta property="og:url" content="http://yzx41099298.github.io/2015/03/11/listView/">
+<meta property="og:title" content="Dagger中addsTo VS include in subObjectGraphs">
+<meta property="og:url" content="http://yzx41099298.github.io/2015/03/24/dagger/">
 <meta property="og:site_name" content="Yzx Blog">
-<meta property="og:description" content="Use the View Holder pattern
-Do as little work as possible in getView()
-Reduce unnecessary overdraw
-Flatten the view hierarchy">
+<meta property="og:description" content="在Dagger中遇到要注入新的module的时候，需要调用existingObjectGraph.plus(new SomeModule());来告诉ObjectGraphs有新的Module需要注入。如果新注入的Module依赖于原existingObjectGraph中的某一个Module, 从原理上可以使用includes和addsTo两种方式，但是两个具体的区别是：
+
+includes表示">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="优化listView">
-<meta name="twitter:description" content="Use the View Holder pattern
-Do as little work as possible in getView()
-Reduce unnecessary overdraw
-Flatten the view hierarchy">
+<meta name="twitter:title" content="Dagger中addsTo VS include in subObjectGraphs">
+<meta name="twitter:description" content="在Dagger中遇到要注入新的module的时候，需要调用existingObjectGraph.plus(new SomeModule());来告诉ObjectGraphs有新的Module需要注入。如果新注入的Module依赖于原existingObjectGraph中的某一个Module, 从原理上可以使用includes和addsTo两种方式，但是两个具体的区别是：
+
+includes表示">
 
   
     <link rel="alternative" href="/atom.xml" title="Yzx Blog" type="application/atom+xml">
@@ -70,10 +67,10 @@ Flatten the view hierarchy">
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-listView" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-dagger" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/03/11/listView/" class="article-date">
-  <time datetime="2015-03-11T09:25:55.000Z" itemprop="datePublished">2015-03-11</time>
+    <a href="/2015/03/24/dagger/" class="article-date">
+  <time datetime="2015-03-24T03:46:00.000Z" itemprop="datePublished">2015-03-24</time>
 </a>
     
   </div>
@@ -84,7 +81,7 @@ Flatten the view hierarchy">
         
   
     <h1 class="article-title" itemprop="name">
-      优化listView
+      Dagger中addsTo VS include in subObjectGraphs
     </h1>
   
 
@@ -92,17 +89,16 @@ Flatten the view hierarchy">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <ol>
-<li>Use the View Holder pattern</li>
-<li>Do as little work as possible in getView()</li>
-<li>Reduce unnecessary overdraw</li>
-<li>Flatten the view hierarchy</li>
-</ol>
+        <p>在Dagger中遇到要注入新的module的时候，需要调用existingObjectGraph.plus(new SomeModule());来告诉ObjectGraphs有新的Module需要注入。<br>如果新注入的Module依赖于原existingObjectGraph中的某一个Module, 从原理上可以使用includes和addsTo两种方式，但是两个具体的区别是：</p>
+<ul>
+<li>includes表示原Module的也会与新的Module生存在同一个subObjectGraphs,  如果没有传递一个现有的实例Dagger会重新实例化。</li>
+<li>addsTo表示新的Module希望在原existingObjectGraph被添加，但是Dagger不会自动添加这个Module。当新的module依赖于原existingObjectGraph中的某一个Module，新的Module可以直接从existingObjectGraph中取到所需要的依赖，如果这个依赖项是单利的，他也会在subObjectGraphs中单例。</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yzx41099298.github.io/2015/03/11/listView/" data-id="h3xhwnoj5k8xxedy" class="article-share-link">Share</a>
+      <a data-url="http://yzx41099298.github.io/2015/03/24/dagger/" data-id="2l94re6v5ruoan8s" class="article-share-link">Share</a>
       
       
     </footer>
@@ -111,19 +107,10 @@ Flatten the view hierarchy">
     
 <nav id="article-nav">
   
-    <a href="/2015/03/11/ActionBarCompat/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          ActionBarCompat
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/03/11/aop/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/03/23/matrix/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">AOP</div>
+      <div class="article-nav-title">Matrix pre post set</div>
     </a>
   
 </nav>
