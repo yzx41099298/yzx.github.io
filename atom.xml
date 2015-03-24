@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://yzx41099298.github.io/"/>
-  <updated>2015-03-24T04:04:55.072Z</updated>
+  <updated>2015-03-24T06:17:57.331Z</updated>
   <id>http://yzx41099298.github.io/</id>
   
   <author>
@@ -19,11 +19,11 @@
     <link href="http://yzx41099298.github.io/2015/03/24/dagger/"/>
     <id>http://yzx41099298.github.io/2015/03/24/dagger/</id>
     <published>2015-03-24T03:46:00.000Z</published>
-    <updated>2015-03-24T04:04:30.000Z</updated>
+    <updated>2015-03-24T06:17:52.000Z</updated>
     <content type="html"><![CDATA[<p>在Dagger中遇到要注入新的module的时候，需要调用existingObjectGraph.plus(new SomeModule());来告诉ObjectGraphs有新的Module需要注入。<br>如果新注入的Module依赖于原existingObjectGraph中的某一个Module, 从原理上可以使用includes和addsTo两种方式，但是两个具体的区别是：</p>
 <ul>
 <li>includes表示原Module的也会与新的Module生存在同一个subObjectGraphs,  如果没有传递一个现有的实例Dagger会重新实例化。</li>
-<li>addsTo表示新的Module希望在原existingObjectGraph被添加，但是Dagger不会自动添加这个Module。当新的module依赖于原existingObjectGraph中的某一个Module，新的Module可以直接从existingObjectGraph中取到所需要的依赖，如果这个依赖项是单利的，他也会在subObjectGraphs中单例。</li>
+<li>addsTo表示新的Module希望在原existingObjectGraph被添加，但是Dagger不会自动添加这个Module。当新的module依赖于原existingObjectGraph中的某一个Module，新的Module可以直接从existingObjectGraph中取到所需要的依赖，如果这个依赖项是单例的，他也会在subObjectGraphs中保持单例。</li>
 </ul>
 ]]></content>
     
