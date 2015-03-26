@@ -63,6 +63,66 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-protobuf" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/11/protobuf/" class="article-date">
+  <time datetime="2015-03-11T09:56:39.000Z" itemprop="datePublished">2015-03-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/11/protobuf/">Protobuf Micro</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Install:">Install:</h3>
+<ol>
+<li><p>Download protomicro at: <a href="https://code.google.com/p/micro-protobuf/" target="_blank" rel="external">https://code.google.com/p/micro-protobuf/</a></p>
+</li>
+<li><p>$ ./configure</p>
+</li>
+<li><p>$ make</p>
+<p> If errors as below：<br> make[2]: <strong><em> [message.lo] Error 1<br> make[1]: </em></strong> [all-recursive] Error 1<br> make: <em>*</em> [all] Error 2</p>
+<p> Add  “#include <istream>“ in src/google/protobuf/message.cc</istream></p>
+</li>
+<li><p>Create file protoc in /usr/local/bin/<br> $ make install</p>
+</li>
+</ol>
+<h3 id="USAGE:">USAGE:</h3>
+<ol>
+<li><p>Define .proto file</p>
+</li>
+<li><p>Create a java class in out_dir.<br> $ /usr/local/bin/protoc —-javamicro_out=”our_dir” <em>*</em>.proto</p>
+</li>
+<li><p>Use the java class。 </p>
+</li>
+<li><p>Import com.google.protobuf.micro in micro-protobuf-read-only/java/src/main/java/。</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yzx41099298.github.io/2015/03/11/protobuf/" data-id="xheo66pydhq549cv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ActivityResult" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/03/11/ActivityResult/" class="article-date">
@@ -311,7 +371,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">15</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">16</span></li></ul>
     </div>
   </div>
 
@@ -321,6 +381,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/03/26/apt/">android 中运用apt自定义一个AbstractProcessor</a>
+          </li>
         
           <li>
             <a href="/2015/03/24/dagger/">Dagger中addsTo VS include in subObjectGraphs</a>
@@ -336,10 +400,6 @@
         
           <li>
             <a href="/2015/03/16/WebViewJS/">在WebView中添加JS</a>
-          </li>
-        
-          <li>
-            <a href="/2015/03/13/TouchEvent/">TouchEvent派发机制</a>
           </li>
         
       </ul>
