@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://yzx41099298.github.io/"/>
-  <updated>2015-03-26T06:57:29.380Z</updated>
+  <updated>2015-03-31T05:41:53.998Z</updated>
   <id>http://yzx41099298.github.io/</id>
   
   <author>
@@ -13,6 +13,26 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Android编译流程]]></title>
+    <link href="http://yzx41099298.github.io/2015/03/31/compile/"/>
+    <id>http://yzx41099298.github.io/2015/03/31/compile/</id>
+    <published>2015-03-31T05:37:12.000Z</published>
+    <updated>2015-03-31T05:40:48.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="image/compile_1.jpg" alt="hello"> </p>
+<ul>
+<li>IDE中的资源打包工具 (Android Asset Packaging Tool ，即图中的aapt) 会将应用中的资源文件进行编译，这些资源文件包括 AndroidManifest.xml文件，为Activity定义的 XML 文件等等。在这个编译过程中也会产生一个 R.java 文件，这样你就可以在你的Java代码中引用这些资源了。</li>
+<li>aidl 工具会将你项目中的所有 .aidl 接口转换成Java接口。</li>
+<li>项目中的所有的Java代码，包括 R.java 和 .aidl 文件，都会被Java编译器编译，然后输出 .class 文件。</li>
+<li>接着 dex 工具就会把上一步骤产生的 .class 文件转成 Dalvik 字节码，也就是 .dex 文件。同时项目中包含的所有第三方类库和 .class 文件也会被转换成 .dex 文件，这样讲方便下一步被打包成最终的 .apk 文件。<br>所有的不能编译的资源（比如图片等等）、编译后的资源文件和 .dex 文件会被 apkbuilder 工具打包成一个 .apk 文件。</li>
+<li>一旦 .apk 文件被构建好之后，如果要把把它安装到设备上面去的话，它就必须用一个debug 或者发行key来对这个apk文件签名。</li>
+<li>最后，如果应用程序已经被签名成为发行模式的apk，你还需要使用 aipalign工具对 .apk 进行对齐优化。这样的话可以减少应用程序在设备上的内存消耗。</li>
+</ul>
+]]></content>
+    
+    
+  </entry>
   
   <entry>
     <title><![CDATA[android 中运用apt自定义一个AbstractProcessor]]></title>

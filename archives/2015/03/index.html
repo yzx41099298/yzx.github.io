@@ -63,6 +63,51 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-compile" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/31/compile/" class="article-date">
+  <time datetime="2015-03-31T05:37:12.000Z" itemprop="datePublished">2015-03-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/31/compile/">Android编译流程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="image/compile_1.jpg" alt="hello"> </p>
+<ul>
+<li>IDE中的资源打包工具 (Android Asset Packaging Tool ，即图中的aapt) 会将应用中的资源文件进行编译，这些资源文件包括 AndroidManifest.xml文件，为Activity定义的 XML 文件等等。在这个编译过程中也会产生一个 R.java 文件，这样你就可以在你的Java代码中引用这些资源了。</li>
+<li>aidl 工具会将你项目中的所有 .aidl 接口转换成Java接口。</li>
+<li>项目中的所有的Java代码，包括 R.java 和 .aidl 文件，都会被Java编译器编译，然后输出 .class 文件。</li>
+<li>接着 dex 工具就会把上一步骤产生的 .class 文件转成 Dalvik 字节码，也就是 .dex 文件。同时项目中包含的所有第三方类库和 .class 文件也会被转换成 .dex 文件，这样讲方便下一步被打包成最终的 .apk 文件。<br>所有的不能编译的资源（比如图片等等）、编译后的资源文件和 .dex 文件会被 apkbuilder 工具打包成一个 .apk 文件。</li>
+<li>一旦 .apk 文件被构建好之后，如果要把把它安装到设备上面去的话，它就必须用一个debug 或者发行key来对这个apk文件签名。</li>
+<li>最后，如果应用程序已经被签名成为发行模式的apk，你还需要使用 aipalign工具对 .apk 进行对齐优化。这样的话可以减少应用程序在设备上的内存消耗。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yzx41099298.github.io/2015/03/31/compile/" data-id="1lfrix39godguhjf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-apt" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/03/26/apt/" class="article-date">
@@ -522,112 +567,6 @@
 
 
   
-    <article id="post-Fromhtml" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/03/11/Fromhtml/" class="article-date">
-  <time datetime="2015-03-11T09:58:35.000Z" itemprop="datePublished">2015-03-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/11/Fromhtml/">Html.fromhtml 方法支持的参数</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <table>
-<thead>
-<tr>
-<th>Tags</th>
-<th style="text-align:left">Format</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>b, strong</td>
-<td style="text-align:left">Bold</td>
-</tr>
-<tr>
-<td>i, em, cite, dfn</td>
-<td style="text-align:left">Italics</td>
-</tr>
-<tr>
-<td>u</td>
-<td style="text-align:left">Underline</td>
-</tr>
-<tr>
-<td>sub</td>
-<td style="text-align:left">Subtext</td>
-</tr>
-<tr>
-<td>sup</td>
-<td style="text-align:left">Supertext</td>
-</tr>
-<tr>
-<td>big</td>
-<td style="text-align:left">Big</td>
-</tr>
-<tr>
-<td>small</td>
-<td style="text-align:left">Small</td>
-</tr>
-<tr>
-<td>tt</td>
-<td style="text-align:left">Monospace</td>
-</tr>
-<tr>
-<td>h1 … h6</td>
-<td style="text-align:left">Headlines</td>
-</tr>
-<tr>
-<td>img</td>
-<td style="text-align:left">Image</td>
-</tr>
-<tr>
-<td>font</td>
-<td style="text-align:left">Font face and color</td>
-</tr>
-<tr>
-<td>blockquote</td>
-<td style="text-align:left">For longer quotes</td>
-</tr>
-<tr>
-<td>a</td>
-<td style="text-align:left">Link</td>
-</tr>
-<tr>
-<td>div, p</td>
-<td style="text-align:left">Paragraph</td>
-</tr>
-<tr>
-<td>br</td>
-<td style="text-align:left">Linefeed</td>
-</tr>
-</tbody>
-</table>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yzx41099298.github.io/2015/03/11/Fromhtml/" data-id="4v5akf4f7th12ae1" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/archives/2015/03/page/2/">2</a><a class="extend next" rel="next" href="/archives/2015/03/page/2/">Next &raquo;</a>
@@ -647,7 +586,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">16</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">17</span></li></ul>
     </div>
   </div>
 
@@ -657,6 +596,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/03/31/compile/">Android编译流程</a>
+          </li>
         
           <li>
             <a href="/2015/03/26/apt/">android 中运用apt自定义一个AbstractProcessor</a>
@@ -672,10 +615,6 @@
         
           <li>
             <a href="/2015/03/19/pulltorefresh/">下拉刷新的简单实现</a>
-          </li>
-        
-          <li>
-            <a href="/2015/03/16/WebViewJS/">在WebView中添加JS</a>
           </li>
         
       </ul>
